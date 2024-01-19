@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete draft article</title>
+    
+    <!-- Bootstrap CSS or other CSS frameworks -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Delete Draft</h1>
+        <p>Are you sure you want to delete this draft?</p>
+        
+        <!-- Form for YES option -->
+        <form action="/path-to-publish-draft/<%= draft.article_id %>" method="POST">
+            <button type="submit" class="btn btn-danger">YES</button>
+        </form>
+
+        <!-- Link for CANCEL option -->
+        <a href="/author-home" class="btn btn-secondary">CANCEL</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit draft article</title>
+    <!-- Bootstrap CSS or other CSS frameworks -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Edit Draft</h1>
+        
+        <p><strong>Name:</strong> <%= draft.name %></p>
+        <p><strong>Last Modified:</strong> <%= draft.last_modified %></p>
+
+        <!-- Form for Editing the Draft -->
+        <form action="/path-to-update-draft/<%= draft.article_id %>" method="POST">
+            <div class="form-group">
+                <label for="draftTitle">Title:</label>
+                <input type="text" class="form-control" id="draftTitle" name="title" value="<%= draft.title %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="draftContent">Content:</label>
+                <textarea class="form-control" id="draftContent" name="content" rows="5" required><%= draft.content %></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit Changes</button>
+        </form>
+    </div>
+</body>
+</html>

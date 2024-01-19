@@ -39,15 +39,15 @@
                                     </div>
                                     <div>
                                         <!-- Publish Button -->
-                                        <form action="/publish-draft/<%= draft.draft_id %>" method="POST" style="display:inline;">
+                                        <form action="/draft-publish/<%= draft.draft_id %>" method="POST" style="display:inline;">
                                             <button type="submit" class="btn btn-success btn-sm">PUBLISH</button>
                                         </form>
                                         
                                         <!-- Edit Button -->
-                                        <a href="/users/update-draft/<%= draft.article_id %>" class="btn btn-primary btn-sm">EDIT</a>
+                                        <a href="/users/draft-update/<%= draft.article_id %>" class="btn btn-primary btn-sm">EDIT</a>
                                         
                                         <!-- Delete Button -->
-                                        <form action="/users/delete-draft/<%= draft.article_id %>" method="POST" style="display:inline;">
+                                        <form action="/users/draft-delete/<%= draft.article_id %>" method="POST" style="display:inline;">
                                             <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
                                         </form>
                                     </div>
