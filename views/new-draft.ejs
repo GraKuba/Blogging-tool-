@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Draft</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Create New Draft</h1>
+    </header>
+
+    <div class="container mt-5">
+        <form action="/users/new-draft" method="POST">
+            <div class="form-group">
+                <label for="draftTitle">Draft Title</label>
+                <input type="text" class="form-control" id="draftTitle" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="draftContent">Content</label>
+                <textarea class="form-control" id="draftContent" name="content" rows="6" required></textarea>
+            </div>
+            <form action="http://localhost:3000/users/author-home">
+                <button type="submit" class="btn btn-primary">Save Draft</button>
+            </form>
+            
+        </form>
+    </div>
+</body>
+</html>

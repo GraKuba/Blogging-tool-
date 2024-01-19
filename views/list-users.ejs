@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List of Users</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
+    <body>
+        <header class="bg-dark text-white text-center py-3">
+            <h1>List of all Users</h1>
+        </header>
+    
+        <div class="container mt-5">
+            <ul>
+                <% users.forEach(function(user) { %>
+                    <li>
+                        <strong>Name:</strong> <%= user.user_name %> | 
+                        <strong>ID:</strong> <%= user.user_id %>
+            
+                        <!-- EDIT Button -->
+                        <a href="/users/edit-user/<%= user.user_id %>" class="btn btn-primary btn-sm">EDIT</a>
+                        
+                        
+                        <!-- DELETE Button -->
+                        <a href="/users/delete-user/<%= user.user_id %>" class="btn btn-danger btn-sm">DELETE</a>
+                    </li>
+                <% }); %>
+            </ul>
+            
+        </div >
+        <div class="container mt-5">
+            <a href="author-home">Click here to get home!</a>
+        </div>
+    </body>
+</html>

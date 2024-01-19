@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Edit User</h1>
+
+
+            <li>
+                <!-- SUBMIT Button -->
+                <form action="/users/edit-user/<%= rows.user_id %>" method="POST">
+                    <strong>Name:</strong>
+
+                    <input value="<%= rows.user_name %>" name="user_name"> 
+                    <input hidden value="<%= rows.user_id %>" name="user_id">
+                    <strong>ID:</strong> <%= rows.user_id %>
+                    
+                    <button>Save</button>
+                </form>
+            </li>
+
+            <div class="container mt-5">
+                <a href="/users/list-users">Click here to get home!</a>
+            </div>
+    </div>
+</body>
+</html>
