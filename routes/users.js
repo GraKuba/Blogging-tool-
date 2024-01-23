@@ -47,6 +47,34 @@ router.get("/author-home", (req, res, next) => {
 
 // Route to UPDATE DRAFT 
 
+// Route to display information about the draft
+router.get('/draft-edit/:draftId', (req, res, next) => {
+    // SQL query to select the draft marked for edit
+    let query = "SELECT * FROM draft_articles WHERE article_id = ?"
+    let draftId = req.params.draftId
+
+    global.db.get(query, draftId, (err, data) => {
+        if (err) {
+            next(err); // Send the error on to the error handler
+        } else {
+            res.render('draft-edit.ejs', {draft: data}); 
+        }
+    })
+});
+
+router.post('/draft-save/:draftId', (req, res, next) => {
+    //  SQL query to submit the changes made to the document 
+    let query = "UPDATE draft_articles SET title = ?, content = ? WHERE article_id = ?"
+    let draft_params = [req.body.title, req.body.content, req.params.draftId]
+    
+    global.db.run(query, draft_params, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.redirect('http://localhost:3000/users/author-home')
+        }
+    })
+});
 
 
 // Route to DELETE DRAFT
@@ -60,12 +88,12 @@ router.get('/draft-delete/:draftId', (req, res, next) => {
     console.log(draftId)
     global.db.get(query, draftId, (err, data) => {
         if (err) {
-            next(err);
+            next(err); // Send the error on to the error handler
         } else {
-            res.render('draft-delete.ejs', {draft: data})
+            res.render('draft-delete.ejs', {draft: data});
         }
     })
-})
+});
 
 // Route to submit or cancel draft deletion. 
 router.post('/confirm-delete/:draftId', (req, res, next) => {
@@ -80,7 +108,7 @@ router.post('/confirm-delete/:draftId', (req, res, next) => {
             res.redirect('http://localhost:3000/users/author-home')
         }
     })
-})
+});
 
 
 // Route to display the new draft page

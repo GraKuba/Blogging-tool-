@@ -16,7 +16,7 @@
         <p><strong>Last Modified:</strong> <%= draft.last_modified %></p>
 
         <!-- Form for Editing the Draft -->
-        <form action="/path-to-update-draft/<%= draft.article_id %>" method="POST">
+        <form action="/users/draft-save/<%= draft.article_id %>" method="POST">
             <div class="form-group">
                 <label for="draftTitle">Title:</label>
                 <input type="text" class="form-control" id="draftTitle" name="title" value="<%= draft.title %>" required>
@@ -28,7 +28,11 @@
             </div>
             
             <button type="submit" class="btn btn-primary">Submit Changes</button>
-        </form>
+            
+            <!-- Link for CANCEL option -->
+        <a href="/users/author-home" class="btn btn-secondary">CANCEL</a>
+        
+    </form>
     </div>
 </body>
 </html>
