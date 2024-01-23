@@ -15,12 +15,12 @@
         <p>Are you sure you want to delete this draft?</p>
         
         <!-- Form for YES option -->
-        <form action="/path-to-publish-draft/<%= draft.article_id %>" method="POST">
+        <form action="/users/confirm-delete/<%= draft.article_id %>" method="POST" style="display:inline;">
             <button type="submit" class="btn btn-danger">YES</button>
         </form>
 
         <!-- Link for CANCEL option -->
-        <a href="/author-home" class="btn btn-secondary">CANCEL</a>
+        <a href="/users/author-home" class="btn btn-secondary">CANCEL</a>
     </div>
 </body>
 

@@ -14,7 +14,8 @@ const express = require("express");
 const router = express.Router();
 
 
-// Add functionality to author home page 
+// ROUTES FOR THE AUTHOR PAGES
+
 router.get("/author-home", (req, res, next) => {
     let draftsQuery = "SELECT * FROM draft_articles";
     let publishedArticlesQuery = "SELECT * FROM published_articles";
@@ -38,27 +39,48 @@ router.get("/author-home", (req, res, next) => {
 });
 
 
-// ROUTE TO SHOW UPDATE DRAFT
+
+// ROUTES FOR THE DRAFT MANAGEMEN
+// Route to PUBLISH DRAFT
 
 
 
-// ROUTE TO UPDATE DRAFT 
+// Route to UPDATE DRAFT 
 
 
 
-// ROUTE TO DELETE DRAFT
-router.post("/delete-draft/:articleID", (req, res, next) => {
-    const articleId = req.params.article_id;
-    let deleteQuery = "DELETE FROM draft_articles WHERE article_id = ?";
+// Route to DELETE DRAFT
 
-    global.db.run(deleteQuery, [articleId], function(err) {
+// Route to display draft delete confirmation page 
+router.get('/draft-delete/:draftId', (req, res, next) => {
+    // SQL query to select the draft marked for deletion
+    let query = "SELECT * FROM draft_articles WHERE article_id = ?"
+    let draftId = req.params.draftId
+
+    console.log(draftId)
+    global.db.get(query, draftId, (err, data) => {
         if (err) {
-            next(err); // Handle the error
+            next(err);
         } else {
-            res.send("Data deleted!"); // Redirect back to the author-home page
+            res.render('draft-delete.ejs', {draft: data})
         }
-    });
-});
+    })
+})
+
+// Route to submit or cancel draft deletion. 
+router.post('/confirm-delete/:draftId', (req, res, next) => {
+    // SQL query to delete the draft
+    let query = "DELETE FROM draft_articles WHERE article_id = ?"
+    let draftId = req.params.draftId
+
+    global.db.run(query, draftId, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.redirect('http://localhost:3000/users/author-home')
+        }
+    })
+})
 
 
 // Route to display the new draft page
@@ -197,7 +219,7 @@ router.get('/delete-user/:userId', (req, res, next) => {
             res.render('delete-user.ejs', {user: user})
         }
     })
-})
+});
 
 router.post('/confirm-delete/:userId', (req, res, next) => {
     // SQL query to delete the user 
@@ -211,7 +233,7 @@ router.post('/confirm-delete/:userId', (req, res, next) => {
             res.redirect('http://localhost:3000/users/list-users')
         }
     })
-})
+});
 
 // Export the router object so index.js can access it
 module.exports = router;
