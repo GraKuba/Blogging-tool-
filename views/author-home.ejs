@@ -39,9 +39,7 @@
                                     </div>
                                     <div>
                                         <!-- Publish Button -->
-                                        <form action="/draft-publish/<%= draft.draft_id %>" method="POST" style="display:inline;">
-                                            <button type="submit" class="btn btn-success btn-sm">PUBLISH</button>
-                                        </form>
+                                        <a href="/users/draft-publish/<%= draft.article_id %>" class="btn btn-success btn-sm">PUBLISH</a>
                                         
                                         <!-- Edit Button -->
                                         <a href="/users/draft-edit/<%= draft.article_id %>" class="btn btn-primary btn-sm">EDIT</a>

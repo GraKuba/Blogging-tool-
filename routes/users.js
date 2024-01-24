@@ -38,11 +38,48 @@ router.get("/author-home", (req, res, next) => {
     });
 });
 
+// ROUTES FOR DRAFT MANAGEMENT
 
-
-// ROUTES FOR THE DRAFT MANAGEMEN
 // Route to PUBLISH DRAFT
 
+router.get('/draft-publish/:draftId', (req, res, next) => {
+    // SQL query to select the draft marked for publish 
+    let query = "SELECT * FROM draft_articles WHERE article_id = ?";
+    let draftId = req.params.draftId;
+
+    global.db.get(query, draftId, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.render('draft-publish.ejs', {draft: data})
+        }
+    })
+});
+
+router.post('/submit-publish/:draftId', (req, res, next) => {
+    // SQL query to add a new published article 
+    let query_publish = "INSERT INTO published_articles (title, content, created, published, likes, user_id) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0, 1)";
+    let publish_params = [req.body.title, req.body.content, req.body.created];
+
+    // SQL query to delete article from drafts
+    let query_delete = "DELETE FROM draft_articles WHERE article_id = ?";
+    let delete_params = req.params.draftId;
+    
+    // Execute both querys and redirect to home page
+    global.db.run(query_publish, publish_params, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            global.db.run(query_delete, delete_params, (err, data) => {
+                if (err) {
+                    next(err);
+                } else {
+                    res.redirect('http://localhost:3000/users/author-home')
+                }
+            })
+        }
+    })
+});
 
 
 // Route to UPDATE DRAFT 
@@ -50,8 +87,8 @@ router.get("/author-home", (req, res, next) => {
 // Route to display information about the draft
 router.get('/draft-edit/:draftId', (req, res, next) => {
     // SQL query to select the draft marked for edit
-    let query = "SELECT * FROM draft_articles WHERE article_id = ?"
-    let draftId = req.params.draftId
+    let query = "SELECT * FROM draft_articles WHERE article_id = ?";
+    let draftId = req.params.draftId;
 
     global.db.get(query, draftId, (err, data) => {
         if (err) {
@@ -64,8 +101,8 @@ router.get('/draft-edit/:draftId', (req, res, next) => {
 
 router.post('/draft-save/:draftId', (req, res, next) => {
     //  SQL query to submit the changes made to the document 
-    let query = "UPDATE draft_articles SET title = ?, content = ? WHERE article_id = ?"
-    let draft_params = [req.body.title, req.body.content, req.params.draftId]
+    let query = "UPDATE draft_articles SET title = ?, content = ? WHERE article_id = ?";
+    let draft_params = [req.body.title, req.body.content, req.params.draftId];
     
     global.db.run(query, draft_params, (err, data) => {
         if (err) {
@@ -82,8 +119,8 @@ router.post('/draft-save/:draftId', (req, res, next) => {
 // Route to display draft delete confirmation page 
 router.get('/draft-delete/:draftId', (req, res, next) => {
     // SQL query to select the draft marked for deletion
-    let query = "SELECT * FROM draft_articles WHERE article_id = ?"
-    let draftId = req.params.draftId
+    let query = "SELECT * FROM draft_articles WHERE article_id = ?";
+    let draftId = req.params.draftId;
 
     console.log(draftId)
     global.db.get(query, draftId, (err, data) => {
@@ -98,8 +135,8 @@ router.get('/draft-delete/:draftId', (req, res, next) => {
 // Route to submit or cancel draft deletion. 
 router.post('/confirm-delete/:draftId', (req, res, next) => {
     // SQL query to delete the draft
-    let query = "DELETE FROM draft_articles WHERE article_id = ?"
-    let draftId = req.params.draftId
+    let query = "DELETE FROM draft_articles WHERE article_id = ?";
+    let draftId = req.params.draftId;
 
     global.db.run(query, draftId, (err, data) => {
         if (err) {
@@ -120,7 +157,7 @@ router.get("/new-draft", (req, res) => {
 router.post("/new-draft", (req, res, next) => {
     // Define the query
     query = "INSERT INTO draft_articles (title, content, created, last_modified, user_id) VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1)";
-    query_parameters = [req.body.title, req.body.content]
+    query_parameters = [req.body.title, req.body.content];
     
     // Execute the query and send a confirmation message
     global.db.run(query, query_parameters,
