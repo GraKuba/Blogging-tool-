@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete article</title>
+    
+    <!-- Bootstrap CSS or other CSS frameworks -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Delete Article</h1>
+        <p>Are you sure you want to delete this article?</p>
+        
+        <!-- Form for YES option -->
+        <form action="/users/published-confirm-delete/<%= article.article_id %>" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger">YES</button>
+        </form>
+
+        <!-- Link for CANCEL option -->
+        <a href="/users/author-home" class="btn btn-secondary">CANCEL</a>
+    </div>
+</body>
+
+</html>

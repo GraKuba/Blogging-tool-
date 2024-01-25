@@ -49,7 +49,7 @@ router.get('/draft-publish/:draftId', (req, res, next) => {
 
     global.db.get(query, draftId, (err, data) => {
         if (err) {
-            next(err);
+            next(err); // Handle the error
         } else {
             res.render('draft-publish.ejs', {draft: data})
         }
@@ -72,7 +72,7 @@ router.post('/submit-publish/:draftId', (req, res, next) => {
         } else {
             global.db.run(query_delete, delete_params, (err, data) => {
                 if (err) {
-                    next(err);
+                    next(err); // Handle the error
                 } else {
                     res.redirect('http://localhost:3000/users/author-home')
                 }
@@ -106,7 +106,7 @@ router.post('/draft-save/:draftId', (req, res, next) => {
     
     global.db.run(query, draft_params, (err, data) => {
         if (err) {
-            next(err);
+            next(err); // Handle the error
         } else {
             res.redirect('http://localhost:3000/users/author-home')
         }
@@ -140,13 +140,14 @@ router.post('/confirm-delete/:draftId', (req, res, next) => {
 
     global.db.run(query, draftId, (err, data) => {
         if (err) {
-            next(err);
+            next(err); // Handle the error
         } else {
             res.redirect('http://localhost:3000/users/author-home')
         }
     })
 });
 
+// Route to CREATE A NEW DRAFT
 
 // Route to display the new draft page
 router.get("/new-draft", (req, res) => {
@@ -165,7 +166,7 @@ router.post("/new-draft", (req, res, next) => {
             if (err) {
                 next(err); //send the error on to the error handler
             } else {
-                res.send("New data inserted!");
+                res.redirect('http://localhost:3000/users/author-home');
                 next();
             }
         }
@@ -173,13 +174,74 @@ router.post("/new-draft", (req, res, next) => {
 });
 
 
+// ROUTE TO HANDLE ARTICLE MANAGEMENT 
 
 
 
+// GET A LINK FOR THE PUBLISHED ARTICLE
 
 
 
+// EDIT A PUBLISHED ARTICLE
+router.get('/published-edit/:articleId', (req, res, next) => {
+    // SQL query to display info about chosen article
+    let query = "SELECT * FROM published_articles WHERE article_id = ?"
+    let articleId = req.params.articleId
 
+    global.db.get(query, articleId, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.render('published-edit.ejs', {article: data});
+        }
+    });
+});
+
+router.post('/published-save/:articleId', (req,res, next) => {
+    // SQL query to update data in the database
+    let query = "UPDATE published_articles SET title = ?, content = ? WHERE article_id = ?";
+    let query_params = [req.body.title, req.body.content, req.params.articleId];
+
+    // Execute the query and redirect to author home page
+    global.db.get(query, query_params, (err, data) => {
+        if (err) {
+            next(err); // Handle the error
+        } else {
+            res.redirect('http://localhost:3000/users/author-home');
+        }
+    });
+});
+
+
+// DELETE A PUBLISHED ARTICLE 
+
+router.get('/published-delete/:articleId', (req, res, next) => {
+    // SQL query to display info about chosen article
+    let query = "SELECT * FROM published_articles WHERE article_id = ?";
+    let articleId = req.params.articleId;
+
+    global.db.get(query, articleId, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.render('published-delete.ejs', {article: data});
+        }
+    });
+});
+
+router.post('/published-confirm-delete/:articleId', (req, res, next) => {
+    // SQL query to confirm the deletion of the selected article
+    let query = "DELETE FROM published_articles WHERE article_id = ?";
+    let articleId = req.params.articleId;
+
+    global.db.get(query, articleId, (err, data) => {
+        if (err) {
+            next(err);
+        } else {
+            res.redirect('http://localhost:3000/users/author-home');
+        }
+    });
+})
 
 
 
@@ -279,7 +341,7 @@ router.get('/delete-user/:userId', (req, res, next) => {
 
     global.db.get(query, userId, (err, user) => {
         if (err) {
-            next(err); 
+            next(err); // Handle the error
         } else {
             res.render('delete-user.ejs', {user: user})
         }
@@ -293,7 +355,7 @@ router.post('/confirm-delete/:userId', (req, res, next) => {
 
     global.db.run(query, query_params, (err, data) => {
         if (err) {
-            next(err);
+            next(err); // Handle the error
         } else {
             res.redirect('http://localhost:3000/users/list-users')
         }

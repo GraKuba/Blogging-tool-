@@ -65,26 +65,40 @@
             </form>
         </section>
 
-        <section id="published" class="mt-4">
-            <h2>Published Articles</h2>
+        <section id="drafts" class="mt-4">
+            <h2>Draft Articles</h2>
             <ul class="list-group">
-                <!-- List of published articles will be here -->
+                <!-- List of drafts will be here -->
                 <div>
                     <% if (publishedArticles && publishedArticles.length) { %>
                         <ul class="list-group">
                             <% publishedArticles.forEach(function(article) { %>
-                                <li class="list-group-item">
-                                    <strong>Title:</strong> <%= article.title %><br>
-                                    <small><strong>Published On:</strong> <%= article.published %></small>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Title:</strong> <%= article.title %><br>
+                                        <small><strong>Last Modified:</strong> <%= article.published %></small>
+                                    </div>
+                                    <div>
+                                        <!-- Share Button -->
+                                        <a href="/users/published-share/<%= article.article_id %>" class="btn btn-success btn-sm">SHARE</a>
+                                        
+                                        <!-- Edit Button -->
+                                        <a href="/users/published-edit/<%= article.article_id %>" class="btn btn-primary btn-sm">EDIT</a>
+                                        
+                                        <!-- Delete Button -->
+                                        <a href="/users/published-delete/<%= article.article_id %>" class="btn btn-danger btn-sm">DELETE</a>
+                                        
+                                    </div>
                                 </li>
                             <% }); %>
                         </ul>
                     <% } else { %>
-                        <p>No published articles available.</p>
+                        <p>No drafts available.</p>
                     <% } %>
                 </div>
             </ul>
         </section>
+
     </div>
 </body>
 </html>
