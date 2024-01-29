@@ -80,13 +80,13 @@
                                     </div>
                                     <div>
                                         <!-- Share Button -->
-                                        <a href="/users/published-share/<%= article.article_id %>" class="btn btn-success btn-sm">SHARE</a>
+                                        <a onclick="alert('/users/published-article/<%= article.article_id %>')" class="btn btn-success btn-sm">SHARE</a>
                                         
                                         <!-- Edit Button -->
                                         <a href="/users/published-edit/<%= article.article_id %>" class="btn btn-primary btn-sm">EDIT</a>
                                         
                                         <!-- Delete Button -->
-                                        <a href="/users/published-delete/<%= article.article_id %>" class="btn btn-danger btn-sm">DELETE</a>
+                                        <a  href="/users/published-delete/<%= article.article_id %>" class="btn btn-danger btn-sm">DELETE</a>
                                         
                                     </div>
                                 </li>

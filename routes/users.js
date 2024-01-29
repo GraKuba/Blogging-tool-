@@ -176,12 +176,6 @@ router.post("/new-draft", (req, res, next) => {
 
 // ROUTE TO HANDLE ARTICLE MANAGEMENT 
 
-
-
-// GET A LINK FOR THE PUBLISHED ARTICLE
-
-
-
 // EDIT A PUBLISHED ARTICLE
 router.get('/published-edit/:articleId', (req, res, next) => {
     // SQL query to display info about chosen article
