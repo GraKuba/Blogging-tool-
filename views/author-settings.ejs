@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Settings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Author Settings</h1>
+        <a href="author-home" class="text-white">Back to Home</a>
+    </header>
+
+    <div class="container mt-4">
+        <form action="/update-author-info" method="POST">
+            <div class="form-group">
+                <label for="authorName">Name:</label>
+                <input type="text" class="form-control" id="authorName" name="name">
+            </div>
+            <div class="form-group">
+                <label for="authorEmail">Email:</label>
+                <input type="email" class="form-control" id="authorEmail" name="email">
+            </div>
+            <!-- Add more fields as necessary -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <p>&copy; 2024 My Blog</p>
+    </footer>
+
+    <!-- Bootstrap JS and JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

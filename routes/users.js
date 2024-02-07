@@ -38,6 +38,22 @@ router.get("/author-home", (req, res, next) => {
     });
 });
 
+router.get("/author-settings", (req, res, next) => {
+    // SQL query to display chosen user's data
+    let query = "SELECT * FROM users WHERE user_id = ?"
+    let userId = req.params.userId
+    console.log(req.params)
+    console.log(req.body)
+
+    global.db.get(query, userId, (err, data) => {
+        if (err) {
+            next(err); // Handle the error
+        } else {
+            res.render('author-settings.ejs', {user: data})
+        }
+    })
+});
+
 // ROUTES FOR DRAFT MANAGEMENT
 
 // Route to PUBLISH DRAFT
@@ -53,7 +69,7 @@ router.get('/draft-publish/:draftId', (req, res, next) => {
         } else {
             res.render('draft-publish.ejs', {draft: data})
         }
-    })
+    });
 });
 
 router.post('/submit-publish/:draftId', (req, res, next) => {
